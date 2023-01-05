@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { ActionFunctionArgs, redirect } from "react-router-dom";
-import { postLogin } from "../../Apis/apis";
+import { postLogin } from "../../apis/apis";
 import { PostFormReturnProps } from "../../types/apiTypes";
 import createActionFormData from "../../utils/createActionFormData";
 
