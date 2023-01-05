@@ -1,22 +1,32 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { PostFormProps, PostFormReturnProps } from "../types/apiTypes";
 
 const axiosClient = axios.create({
   baseURL: "http://localhost:8080",
 });
 
-interface PostLoginProps {
-  [k: string]: FormDataEntryValue;
-}
-
-export const postJoin = async (data: PostLoginProps) => {
+export const postJoin = async (data: PostFormProps) => {
   try {
-    const response = await axiosClient.post("/users/create", data);
+    const response = await axiosClient.post<PostFormReturnProps>(
+      "/users/create",
+      data
+    );
     return response;
-  } catch ({
-    response: {
-      data: { details },
-    },
-  }) {
-    return details;
+  } catch (error: unknown) {
+    if (error instanceof AxiosError<string>)
+      return error.response?.data.details;
+  }
+};
+
+export const postLogin = async (data: PostFormProps) => {
+  try {
+    const response = await axiosClient.post<PostFormReturnProps>(
+      "/users/login",
+      data
+    );
+    return response;
+  } catch (error: unknown) {
+    if (error instanceof AxiosError<string>)
+      return error.response?.data.details;
   }
 };
