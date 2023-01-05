@@ -4,6 +4,7 @@ import Auth from "../pages/Auth";
 import Error from "../pages/Error";
 import Home from "../pages/Home";
 import Join from "../pages/Join";
+import joinAction from "../pages/Join/action";
 import Login from "../pages/Login";
 
 const router = createBrowserRouter([
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "auth", element: <Auth /> },
-      { path: "join", element: <Join /> },
+      { path: "join", element: <Join />, action: joinAction },
       { path: "login", element: <Login /> },
     ],
   },
