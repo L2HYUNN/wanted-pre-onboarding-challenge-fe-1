@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { ActionFunctionArgs, redirect } from "react-router-dom";
 import { postJoin } from "../../apis/apis";
 import { PostFormReturnProps } from "../../types/apiTypes";
