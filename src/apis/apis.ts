@@ -1,5 +1,11 @@
 import axios, { AxiosError } from "axios";
-import { PostFormProps, PostFormReturnProps } from "../types/apiTypes";
+import {
+  DeleteToDoProps,
+  PostFormProps,
+  PostFormReturnProps,
+  PostToDoReturnProp,
+} from "../types/apiTypes";
+import tokenLoader from "../utils/tokenLoader";
 
 const axiosClient = axios.create({
   baseURL: "http://localhost:8080",
@@ -28,5 +34,47 @@ export const postLogin = async (data: PostFormProps) => {
   } catch (error: unknown) {
     if (error instanceof AxiosError<string>)
       return error.response?.data.details;
+  }
+};
+
+export const getTodos = async () => {
+  try {
+    const token = tokenLoader();
+    const response = await axiosClient.get("/todos", {
+      headers: { Authorization: token },
+    });
+    return response;
+  } catch (error: unknown) {
+    if (error instanceof AxiosError<string>)
+      return error.response?.data.details;
+  }
+};
+
+export const postCreateTodo = async (data: PostFormProps) => {
+  try {
+    const token = tokenLoader();
+    const response = await axiosClient.post<PostToDoReturnProp>(
+      "/todos",
+      data,
+      {
+        headers: { Authorization: token },
+      }
+    );
+    return response;
+  } catch (error: unknown) {
+    if (error instanceof AxiosError<string>)
+      return error.response?.data.details;
+  }
+};
+
+export const deleteTodo = async (id: string) => {
+  try {
+    const token = tokenLoader();
+    const response = await axiosClient.delete<DeleteToDoProps>(`/todos/${id}`, {
+      headers: { Authorization: token },
+    });
+    return response;
+  } catch (error: unknown) {
+    if (error instanceof AxiosError<string>) return error.response?.data.data;
   }
 };
