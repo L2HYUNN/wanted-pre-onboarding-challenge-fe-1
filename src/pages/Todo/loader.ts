@@ -1,11 +1,10 @@
 import { QueryClient } from "@tanstack/react-query";
-import { getTodoQuery } from "../../apis/queries";
+import { getTodosQuery } from "../../apis/queries";
 
 const loader = (queryClient: QueryClient) => async () => {
-  const query = getTodoQuery();
+  const query = getTodosQuery();
 
   if (query.queryKey) {
-    console.log("loader working");
     return (
       queryClient.getQueryData(query.queryKey) ??
       (await queryClient.fetchQuery(query))

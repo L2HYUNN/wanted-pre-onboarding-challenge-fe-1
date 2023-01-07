@@ -1,3 +1,4 @@
+// TODO: need to refactor import
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ReactDOM from "react-dom/client";
@@ -15,7 +16,9 @@ import Todo from "./pages/Todo";
 import todoAction from "./pages/Todo/action";
 import todoLoader from "./pages/Todo/loader";
 import tokenLoader from "./utils/tokenLoader";
-import todoDeleteAction from "./pages/Todo/deleteAction";
+import TodoDetail from "./components/Todo/TodoDetail";
+import todoDetailLoader from "./components/Todo/TodoDetail/loader";
+import todoDetailAction from "./components/Todo/TodoDetail/action";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,7 +49,12 @@ const router = createBrowserRouter([
         loader: todoLoader(queryClient),
         action: todoAction(queryClient),
         children: [
-          { path: ":id/delete", action: todoDeleteAction(queryClient) },
+          {
+            path: ":id",
+            element: <TodoDetail />,
+            loader: todoDetailLoader(queryClient),
+            action: todoDetailAction(queryClient),
+          },
         ],
       },
     ],

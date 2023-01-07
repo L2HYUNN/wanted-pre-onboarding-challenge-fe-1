@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { useFetcher, useLoaderData } from "react-router-dom";
-import { getTodoQuery } from "../../apis/queries";
+import { Outlet, useFetcher, useLoaderData } from "react-router-dom";
+import { getTodosQuery } from "../../apis/queries";
 import TodoList from "../../components/Todo/TodoList";
 import * as CS from "../../styles/CommonStyles";
 import * as S from "./Todo.style";
@@ -15,7 +15,7 @@ const Todo = () => {
     data: {
       data: { data },
     },
-  } = useQuery({ ...getTodoQuery(), initialData }) as any;
+  } = useQuery({ ...getTodosQuery(), initialData }) as any;
   const fetcher = useFetcher();
 
   // TODO: need to optimize rendering
@@ -23,12 +23,13 @@ const Todo = () => {
   return (
     <S.Container>
       <TodoList list={data} />
+      <Outlet />
       <fetcher.Form
         method="post"
         style={{
           display: "flex",
           flexDirection: "column",
-          marginTop: "15px",
+          marginTop: "16px",
         }}
       >
         <CS.Input type="text" name="title" placeholder="title" />
