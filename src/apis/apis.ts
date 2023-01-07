@@ -4,6 +4,7 @@ import {
   PostFormProps,
   PostFormReturnProps,
   PostToDoReturnProp,
+  PutFormProps,
 } from "../types/apiTypes";
 import tokenLoader from "../utils/tokenLoader";
 
@@ -11,6 +12,7 @@ const axiosClient = axios.create({
   baseURL: "http://localhost:8080",
 });
 
+// TODO: optimize api logic
 export const postJoin = async (data: PostFormProps) => {
   try {
     const response = await axiosClient.post<PostFormReturnProps>(
@@ -73,6 +75,19 @@ export const postCreateTodo = async (data: PostFormProps) => {
         headers: { Authorization: token },
       }
     );
+    return response;
+  } catch (error: unknown) {
+    if (error instanceof AxiosError<string>)
+      return error.response?.data.details;
+  }
+};
+
+export const putUpdateTodo = async ({ id, data }: PutFormProps) => {
+  try {
+    const token = tokenLoader();
+    const response = await axiosClient.put(`/todos/${id}`, data, {
+      headers: { Authorization: token },
+    });
     return response;
   } catch (error: unknown) {
     if (error instanceof AxiosError<string>)
