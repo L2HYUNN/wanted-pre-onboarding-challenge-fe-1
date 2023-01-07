@@ -50,6 +50,19 @@ export const getTodos = async () => {
   }
 };
 
+export const getTodo = async (id: string) => {
+  try {
+    const token = tokenLoader();
+    const response = await axiosClient.get(`/todos/${id}`, {
+      headers: { Authorization: token },
+    });
+    return response;
+  } catch (error: unknown) {
+    if (error instanceof AxiosError<string>)
+      return error.response?.data.details;
+  }
+};
+
 export const postCreateTodo = async (data: PostFormProps) => {
   try {
     const token = tokenLoader();
