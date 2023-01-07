@@ -19,6 +19,9 @@ import tokenLoader from "./utils/tokenLoader";
 import TodoDetail from "./components/Todo/TodoDetail";
 import todoDetailLoader from "./components/Todo/TodoDetail/loader";
 import todoDetailAction from "./components/Todo/TodoDetail/action";
+import TodoEdit from "./components/Todo/TodoEdit";
+import todoEditLoader from "./components/Todo/TodoEdit/loader";
+import todoEditAction from "./components/Todo/TodoEdit/action";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -54,6 +57,12 @@ const router = createBrowserRouter([
             element: <TodoDetail />,
             loader: todoDetailLoader(queryClient),
             action: todoDetailAction(queryClient),
+          },
+          {
+            path: ":id/edit",
+            element: <TodoEdit />,
+            loader: todoEditLoader(queryClient),
+            action: todoEditAction(queryClient),
           },
         ],
       },
