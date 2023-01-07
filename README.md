@@ -5,4 +5,7 @@
 - [x] 회원가입
 
 ### Todo
-- [x] Todo CRUD
+- [x] Todo Create
+- [x] Todo Read
+- [ ] Todo Update
+- [x] Todo Delete
