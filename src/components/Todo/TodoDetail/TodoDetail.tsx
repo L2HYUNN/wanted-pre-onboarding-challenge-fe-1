@@ -1,4 +1,9 @@
-import { useFetcher, useLoaderData, useParams } from "react-router-dom";
+import {
+  useFetcher,
+  useLoaderData,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import * as S from "./TodoDetail.style";
 import loader from "./loader";
 import { getTodoQuery } from "../../../apis/queries";
@@ -17,21 +22,24 @@ const TodoDetail = () => {
       data: { data },
     },
   } = useQuery({ ...getTodoQuery(params.id!), initialData }) as any;
+  const navigate = useNavigate();
 
   return (
     <S.Container>
       <fetcher.Form
-        method="post"
+        method="delete"
         style={{
           display: "flex",
           flexDirection: "column",
         }}
       >
         <S.TodoTitle>Title</S.TodoTitle>
-        <S.TodoInput type="text" value={data.title} />
+        <S.TodoInput type="text" value={data.title} disabled />
         <S.TodoContent>Content</S.TodoContent>
-        <S.TodoTextarea value={data.content} />
-        <S.TodoEditButton type="button">Edit</S.TodoEditButton>
+        <S.TodoTextarea value={data.content} disabled />
+        <S.TodoEditButton type="button" onClick={() => navigate("edit")}>
+          Edit
+        </S.TodoEditButton>
         <S.TodoDeleteButton type="submit">Delete</S.TodoDeleteButton>
       </fetcher.Form>
     </S.Container>
