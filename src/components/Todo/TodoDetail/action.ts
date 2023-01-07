@@ -1,8 +1,8 @@
 import { QueryClient } from "@tanstack/react-query";
 import { ActionFunctionArgs, redirect } from "react-router-dom";
-import { deleteTodo } from "../../apis/apis";
+import { deleteTodo } from "../../../apis/apis";
 
-const deleteAction =
+const action =
   (queryClient: QueryClient) =>
   async ({ params }: ActionFunctionArgs) => {
     if (params.id) {
@@ -15,4 +15,4 @@ const deleteAction =
     }
   };
 
-export default deleteAction;
+export default action;
