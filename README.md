@@ -2,10 +2,11 @@
 ## 구현 기능 
 ### Auth 
 - [x] 로그인
+- [x] 로그아웃
 - [x] 회원가입
 
 ### Todo
 - [x] Todo Create
 - [x] Todo Read
-- [ ] Todo Update
+- [x] Todo Update
 - [x] Todo Delete
